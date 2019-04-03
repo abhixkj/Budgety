@@ -112,7 +112,9 @@ var UIController = (function () {
         budgetLabel: '.budget__value',
         incomeLabel: '.budget__income--value',
         expensesLabel: '.budget__expenses--value',
-        percentageLabel: '.budget__expenses--percentage'
+        percentageLabel: '.budget__expenses--percentage',
+        container: '.container',
+        item__delete: 'item__delete--btn'
     }
 
     return {
@@ -129,10 +131,10 @@ var UIController = (function () {
 
             if (type === 'inc') {
                 element = DOMstrings.incomeContainer;
-                html = '<div class="item clearfix" id="income-%id%"> <div class="item__description">%description%</div><div class="right clearfix"> <div class="item__value">%value%</div><div class="item__delete"> <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                html = '<div class="item clearfix" id="inc-%id%"> <div class="item__description">%description%</div><div class="right clearfix"> <div class="item__value">%value%</div><div class="item__delete"> <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             } else if (type === 'exp') {
                 element = DOMstrings.expenseContainer;
-                html = '<div class="item clearfix" id="expense-%id%""><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                html = '<div class="item clearfix" id="exp-%id%""><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             }
 
             //Replace the placeholder text with actual data
@@ -190,6 +192,8 @@ var controller = (function (budgetCtrl, UICtrl) {
                 ctrlAddItem();
             }
         });
+
+        document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
     };
 
     updateBudget = function () {
@@ -225,6 +229,29 @@ var controller = (function (budgetCtrl, UICtrl) {
             updateBudget();
         }
     };
+
+    var ctrlDeleteItem = function (event) {
+        var itemId, splitId, type, ID;
+
+        itemId = (event.target.parentNode.parentNode.parentNode.parentNode.id);
+
+        if (itemId) {
+
+            //inc-1
+            splitId = itemId.split('-');
+            type = splitId[0];
+            ID = splitId[0];
+
+            //1. DELETE FROM DATA
+
+            //2.DELETE FROM UI
+
+            //3.UPDATE & SHOW Budget
+
+        }
+
+
+    }
 
     return {
         init: function () {
